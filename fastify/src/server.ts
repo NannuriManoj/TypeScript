@@ -58,6 +58,54 @@ fastify.post<{ Body: { title: string} }>('/todos', async(request, reply) => {
     reply.code(201).send({ todo: newTodo })
 })
 
+// PUT //todos/:id - Update todo
+fastify.put<{
+    Params: {id: string};
+    Body: {title?: string; completed: boolean}
+}>(
+    '/todos/:id', async(request, reply)=>{
+        const id = parseInt(request.params.id);
+        const todoIndex = todos.findIndex(t => t.id === id);
+
+        if(todoIndex === -1){
+            reply.code(404).send({ error: "Todo not found"});
+            return;
+        }
+
+        const todo = todos[todoIndex];
+        if(!todo){
+            reply.code(404).send({error: "Todo not found"});
+            return;
+        }
+
+        const { title, completed } = request.body;
+
+        if(title !== undefined){
+            todo.title = title;
+        }
+        if(completed !== undefined){
+            todo.completed = completed;
+        }
+
+        return todo;
+
+    }
+)
+
+// DELETE /todos/:id - DELETE todo
+fastify.delete<{Params: {id: string}}>('/todos/:id', async (request, reply) => {
+    const id = parseInt(request.params.id);
+    const todoIndex = todos.findIndex(t => t.id === id);
+
+    if(todoIndex === -1){
+        reply.code(404).send({error: "Todo not found"});
+        return;
+    }
+
+    todos.splice(todoIndex,1);
+
+    return { message: "Todo Deleted"};
+})
 
 
 const start = async ()=>{
