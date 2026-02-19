@@ -40,6 +40,32 @@ fastify.get<{ Params: {id: string} }>('/todos/:id', async(request, reply) => {
     return { todo };
 })
 
+// task for level - 2
+fastify.get<{ Querystring: {q: string, limit?: number} }>('/todos/search', async (request, reply) => {
+    const q = request.query.q;
+    const limit = request.query.limit;
+
+    return { query: q, limit: limit ?? 'no limit'};
+})
+
+// task for level - 2
+fastify.post<{ Body: { email: string, password: string }}>('/register', async(request, reply) => {
+    const email = request.body.email;
+    const password = request.body.password;
+
+    const newUsers = {
+        email: email,
+        password: password
+    }
+    
+    return { msg: "User registerd", user: newUsers }
+});
+
+// task for level - 2
+fastify.get<{Reply: {id: number, email: string }}>('/profile', async (request, reply) => {
+    return { id: 1, email: "manoj@gmail.com"}
+})
+
 // POST /todos - Create new todo
 fastify.post<{ Body: { title: string} }>('/todos', async(request, reply) => {
     const { title } = request.body;
