@@ -2,9 +2,9 @@ import type { FastifyInstance } from 'fastify';
 import fp from 'fastify-plugin';
 
 interface PetInput{
-    name: string,
-    type: string,
-    age: number
+    name: string | undefined,
+    type: string | undefined,
+    age: number | undefined
 }
 
 interface Pet extends PetInput{
@@ -30,7 +30,15 @@ async function storagePlugin(fastify: FastifyInstance) {
                 return true;
             }
             return false;
+        },
+        updatePet: (id: number, updates: Partial<PetInput>): Pet | undefined => {
+        const pet = pets.find(p => p.id === id);
+        if (!pet) return undefined;
+
+        Object.assign(pet, updates);
+        return pet;
         }
+
     })
 
     console.log("Storage shelves ready for pets...")
@@ -45,6 +53,7 @@ declare module 'fastify' {
             getAllPets: ()=> Pet[];
             getPet: (id: number) => Pet | undefined;
             removePet: (id: number) => boolean;
+            updatePet: (id: number, update: Partial<PetInput>) => Pet | undefined;
         }
     }
 }
