@@ -9,7 +9,7 @@ export const PetBodySchema = z.object({
 
 // Params schema 
 export const PetIdParamSchema = z.object({
-    id: z.coerce.number().int().positive()
+    id: z.number().int().positive()
 })
 
 // update schema
