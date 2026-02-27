@@ -167,15 +167,9 @@ If you want to follow the same learning path:
 
 ---
 
-## 📖 Related Writing
-
-- 📝 [Authentication & Authorization: From Wax Seals to JWTs](https://medium.com/@nannurimanoj26/authentication-and-authorization-5ea0dd14fe1a)
-
----
-
 ## 🤝 Connect
 
-- 💼 [LinkedIn](https://www.linkedin.com/in/nannurimanoj)
+- 💼 [LinkedIn](https://www.linkedin.com/in/nannuri-manoj/)
 - 📝 [Medium](https://medium.com/@nannurimanoj26)
 
 ---
